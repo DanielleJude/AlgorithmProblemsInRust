@@ -1,5 +1,5 @@
 [package]
-name = "AlgorithmProblemsInRust"
+name = "algorithm_problems_in_rust"
 version = "0.1.0"
 authors = ["Danielle Melvin <daniellemelvin2013@gmail.com>"]
 edition = "2018"
