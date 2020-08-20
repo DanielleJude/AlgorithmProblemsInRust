@@ -15,22 +15,16 @@ mod array_products {
         }
 
         // Create a prefix products array where each i is the product of all # before and including i
-        let mut prefix_products : Vec<i32> = Vec::with_capacity(arr.len());
-        let mut prev_number = 1;
-        for i in 0..arr.len() {
-            let num = arr[i];
-            prefix_products.push(num * prev_number);
-            prev_number = prev_number * num;
-        }
+        //let mut prefix_products : Vec<i32> = Vec::with_capacity(arr.len());
+        let prefix_products = make_accumulation_arr(arr.into_iter());
 
         // Create a suffix products array where each i is the product of all # after and including i
-        let mut suffix_products : Vec<i32> = vec![1; arr.len()];
-        prev_number = 1;
-        for i in (0..arr.len()).rev() {
-            let num = arr[i];
-            suffix_products[i] = num * prev_number;
-            prev_number = prev_number * num;
-        }
+        //let mut suffix_products : Vec<i32> = vec![1; arr.len()];
+        let suffix_products : Vec<i32> = make_accumulation_arr(arr.iter().rev())
+                                                    .iter()
+                                                    .rev()
+                                                    .map(|num| *num)
+                                                    .collect();
 
         let mut result = Vec::with_capacity(arr.len());
         for i in 0..arr.len() {
@@ -45,6 +39,22 @@ mod array_products {
         }
 
         result
+    }
+
+    /// Helper function to create the product/suffix arrays
+    fn make_accumulation_arr<'a, I>(arr_iter : I) -> Vec<i32>
+        where I:Iterator<Item = &'a i32>, {
+        // Define a closure that allows has an intial product_acc value
+        // and takes in the current number, multiplies and updates the product_acc
+        // and returns the result
+        let mut product_acc = 1;
+        let mut product_closure = |num:&i32| -> i32 {
+            product_acc = product_acc * num;
+            product_acc
+        };
+
+        arr_iter.map(|num| product_closure(&num))
+                .collect()
     }
 
     /// Assume we are not allowed to use the division operator
