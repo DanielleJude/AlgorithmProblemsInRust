@@ -3,6 +3,7 @@
 /// i of the new array is the product of all the numbers in the original array
 /// except the one at i
 mod array_products {
+
     /// Use both prefix and suffix product arrays
     /// O(n) time, O(n) space.
     pub fn get_product_of_all_other_elements_no_division(arr : &Vec<i32>) -> Vec<i32> {
@@ -95,52 +96,47 @@ mod array_products {
 
     #[cfg(test)]
     mod tests {
-        // Note this useful idiom: importing names from outer (for mod tests) scope.
         use super::*;
+
+        fn test_functions(input : Vec<i32>, expected : Vec<i32>) {
+            assert_eq!(get_product_of_all_other_elements(&input), expected);
+            assert_eq!(get_product_of_all_other_elements_brute_force(&input), expected);
+            assert_eq!(get_product_of_all_other_elements_no_division(&input), expected);
+        }
 
         #[test]
         fn test_empty_arr() {
             let arr : Vec<i32> = Vec::new();
             let expected : Vec<i32> = Vec::new();
-            assert_eq!(get_product_of_all_other_elements(&arr), expected);
-            assert_eq!(get_product_of_all_other_elements_brute_force(&arr), expected);
-            assert_eq!(get_product_of_all_other_elements_no_division(&arr), expected);
+            test_functions(arr, expected);
         }
 
         #[test]
         fn test_size_one_arr() {
             let arr : Vec<i32> = vec![5];
             let expected : Vec<i32> = vec![1];
-            assert_eq!(get_product_of_all_other_elements(&arr), expected);
-            assert_eq!(get_product_of_all_other_elements_brute_force(&arr), expected);
-            assert_eq!(get_product_of_all_other_elements_no_division(&arr), expected);
+            test_functions(arr, expected);
         }
 
         #[test]
         fn test_all_zeroes() {
             let arr : Vec<i32> = vec![0, 0, 0];
             let expected : Vec<i32> = vec![0, 0, 0];
-            assert_eq!(get_product_of_all_other_elements(&arr), expected);
-            assert_eq!(get_product_of_all_other_elements_brute_force(&arr), expected);
-            assert_eq!(get_product_of_all_other_elements_no_division(&arr), expected);
+            test_functions(arr, expected);
         }
 
         #[test]
         fn test_one_to_five() {
             let arr : Vec<i32> = vec![1, 2, 3, 4, 5];
             let expected : Vec<i32> = vec![120, 60, 40, 30, 24];
-            assert_eq!(get_product_of_all_other_elements(&arr), expected);
-            assert_eq!(get_product_of_all_other_elements_brute_force(&arr), expected);
-            assert_eq!(get_product_of_all_other_elements_no_division(&arr), expected);
+            test_functions(arr, expected);
         }
 
         #[test]
         fn test_three_to_one() {
             let arr : Vec<i32> = vec![3, 2, 1];
             let expected : Vec<i32> = vec![2, 3, 6];
-            assert_eq!(get_product_of_all_other_elements(&arr), expected);
-            assert_eq!(get_product_of_all_other_elements_brute_force(&arr), expected);
-            assert_eq!(get_product_of_all_other_elements_no_division(&arr), expected);
+            test_functions(arr, expected);
         }
 
     }
