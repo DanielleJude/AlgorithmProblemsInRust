@@ -1,7 +1,7 @@
 /// Given an array of numbers, find the maximum sum of any
 /// contiguous subarray of the array.
 /// Includes wrap around array capabilities as well
-mod max_subarray{
+mod max_subarray {
     use std::cmp::{max, min};
 
     /// O(n) time O(1) space
